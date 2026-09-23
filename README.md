@@ -1,335 +1,241 @@
 # TrailKit — Browser Toolkit
 
-A unified, static website that brings together useful browser-compatible concepts from seven open-source repositories into a single, polished multi-tool application.
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](#license)
+[![Zero Build](https://img.shields.io/badge/Build-Zero%20Config%20%2F%20Static-green.svg)](#local-setup)
+[![Platform: Browser](https://img.shields.io/badge/Platform-Web%20Standards-orange.svg)](#browser-compatibility)
+[![Privacy First](https://img.shields.io/badge/Privacy-100%25%20Client--Side-brightgreen.svg)](#privacy--security)
 
-## Description
+TrailKit is a cohesive, static web application that consolidates browser-compatible utilities for outdoor navigation, weather forecasting, image and PDF manipulation, live speech transcription, developer workflows, and currency exchange into a single zero-dependency product.
 
-TrailKit is a client-side toolkit for outdoor navigation, weather, image/PDF conversion, speech transcription, developer utilities, and currency conversion. It runs entirely in the browser — no backend, no build step, no installation required.
+The platform runs 100% client-side with no backend infrastructure, build systems, or installation steps required. Every tool operates directly on standard Web APIs and documented open services.
 
-The project adapts concepts from seven reference repositories into a single coherent product. Every feature presented as functional genuinely works in a modern browser, and every browser limitation is documented honestly.
+---
 
-## Features
+## Table of Contents
 
-- **Outdoor & Navigation** — Distance & bearing calculator, sunrise/sunset estimator, altitude estimator from pressure
-- **Weather** — Current conditions and 7-day forecast via Open-Meteo (free, no API key)
-- **Image Toolkit** — Resize, compress, convert format, rotate, crop, and inspect images locally
-- **Images to PDF** — Combine multiple images into a single PDF with reordering and page options
-- **Speech to Text** — Live microphone transcription via the Web Speech API
-- **Developer Utilities** — Hash generator, UUID, Base64, JSON formatter, unit converter, QR code generator
-- **Currency Converter** — Convert between 200+ currencies via Frankfurter API v2 (free, no key)
-- **Dark/Light Theme** — Persisted in localStorage, respects system preference
-- **Responsive** — Works on desktop, tablet, and mobile
-- **Accessible** — Semantic HTML, keyboard navigation, focus states, ARIA attributes
-- **Privacy First** — Files processed locally; no tracking, no analytics, no cookies
+- [Key Features](#key-features)
+- [Tools Catalog](#tools-catalog)
+- [Technology Stack](#technology-stack)
+- [Project Architecture](#project-architecture)
+- [Getting Started](#getting-started)
+- [Deployment](#deployment)
+- [External Dependencies & APIs](#external-dependencies--apis)
+- [Browser Compatibility](#browser-compatibility)
+- [Privacy & Security](#privacy--security)
+- [Known Limitations](#known-limitations)
+- [Attribution & Credits](#attribution--credits)
+- [Contributing](#contributing)
+- [License](#license)
 
-## Tools Included
+---
 
-| Tool | Category | Processing |
-|------|----------|------------|
-| Distance & Bearing Calculator | Outdoor | Local |
-| Sunrise & Sunset | Outdoor | Local |
-| Altitude Estimator | Outdoor | Local |
-| Weather Forecast | Weather | Open-Meteo API |
-| Image Resize/Compress/Convert/Rotate/Crop | Image | Local (Canvas) |
-| Images to PDF | PDF | Local (jsPDF) |
-| Speech to Text | Speech | Browser Web Speech API |
-| Hash Generator | Utilities | Local (Web Crypto) |
-| UUID Generator | Utilities | Local |
-| Base64 Encoder/Decoder | Utilities | Local |
-| JSON Formatter | Utilities | Local |
-| Unit Converter | Utilities | Local |
-| QR Code Generator | Utilities | Local (qrcode-generator) |
-| Currency Converter | Utilities | Frankfurter API v2 |
+## Key Features
+
+* **Zero Build Step:** Serve directly from standard source files via any static web server or host.
+* **100% Client-Side Privacy:** Files and data are processed locally via Canvas, Web Crypto, and client runtime; no personal data or files are sent to remote servers.
+* **Universal Responsiveness:** Fully accessible interface with keyboard navigation, ARIA attributes, semantic HTML, and adaptive layouts across mobile, tablet, and desktop.
+* **System-Aware Theme Engine:** Smooth light/dark mode transitions with automatic system preference detection and `localStorage` persistence.
+* **Honest Browser Support:** Clear boundary separation between client-supported features and platform limitations.
+
+---
+
+## Tools Catalog
+
+| Category | Tool | Underlying Engine / Source | Local / Remote |
+| :--- | :--- | :--- | :--- |
+| **Outdoor** | Distance & Bearing Calculator | Haversine formula & initial bearing algorithms | Local |
+| **Outdoor** | Sunrise & Sunset Estimator | NOAA simplified solar position algorithm | Local |
+| **Outdoor** | Altitude Estimator | Barometric pressure equations | Local |
+| **Weather** | 7-Day Forecast & Geocoding | Open-Meteo REST API | Remote (No-key API) |
+| **Media** | Image Editor & Converter | HTML5 Canvas API (Resize, compress, crop, rotate, inspect) | Local |
+| **Media** | Images to PDF Converter | `jsPDF` library with drag/drop page sorting and sizing | Local |
+| **Speech** | Speech to Text Transcription | Web Speech Recognition API with TXT export | Browser engine |
+| **Developer** | Cryptographic Hash Generator | Web Crypto API (MD5, SHA-1, SHA-256, SHA-512) | Local |
+| **Developer** | UUID Generator | RFC4122 v4 generator (batch size 1–50) | Local |
+| **Developer** | Base64 Encoder / Decoder | UTF-8 compliant Base64 pipeline | Local |
+| **Developer** | JSON Formatter & Minifier | Native JSON parser with error highlighting | Local |
+| **Developer** | Unit Converter | Multi-metric unit conversion (length, mass, temp, volume, speed, data) | Local |
+| **Developer** | QR Code Generator | `qrcode-generator` engine with custom resolution and download | Local |
+| **Finance** | Currency Converter | Frankfurter API v2 (European Central Bank data, 200+ currencies) | Remote (No-key API) |
+
+---
 
 ## Technology Stack
 
-- **HTML5** — semantic, accessible markup
-- **CSS3** — custom design system, responsive layout, CSS animations
-- **Vanilla JavaScript** — modular, no framework dependencies
-- **Web APIs** — Canvas, Web Crypto, Web Speech, File, Fetch, localStorage
-- **External CDN libraries** — jsPDF (PDF generation), qrcode-generator (QR codes)
-- **No build system** — deploy directly from source files
+* **Markup & Structure:** Semantic HTML5 with focus management and ARIA accessibility roles.
+* **Styling:** Modular CSS3 custom properties (variables), Flexbox, CSS Grid, and motion-safe CSS transitions (`prefers-reduced-motion`).
+* **Logic:** Vanilla JavaScript (ES6+), zero external runtime frameworks.
+* **Standard Web APIs:** HTML5 Canvas, Web Crypto, Web Speech, File API, Fetch API, and Storage API (`localStorage`).
+* **Vendor Libraries:** `jsPDF` (v2.5.2) and `qrcode-generator` (v1.4.4) loaded via HTTPS CDN.
 
-## Folder Structure
+---
 
+## Project Architecture
+
+```plaintext
 trailkit/
-├── index.html
-├── README.md
-├── LICENSE
+├── index.html                  # Landing hub, global search, and tool filtering
+├── README.md                   # Project documentation
+├── LICENSE                     # MIT license terms
 ├── assets/
-│ ├── css/
-│ │ ├── style.css
-│ │ ├── responsive.css
-│ │ └── animations.css
-│ ├── js/
-│ │ ├── app.js
-│ │ ├── theme.js
-│ │ ├── navigation.js
-│ │ ├── outdoor.js
-│ │ ├── weather.js
-│ │ ├── image-tools.js
-│ │ ├── pdf-tools.js
-│ │ ├── speech.js
-│ │ └── utilities.js
-│ └── images/
-│ └── logo.svg
+│   ├── css/
+│   │   ├── style.css           # Core design system and global token definitions
+│   │   ├── responsive.css      # Viewport media queries and layout adaptations
+│   │   └── animations.css      # Keyframes and transition interactions
+│   ├── js/
+│   │   ├── app.js              # Application entrypoint and search logic
+│   │   ├── theme.js            # Theme switching and storage state
+│   │   ├── navigation.js       # Mobile navigation and drawer handlers
+│   │   ├── outdoor.js          # Geodesic and environmental calculation logic
+│   │   ├── weather.js          # Open-Meteo integration and weather parsing
+│   │   ├── image-tools.js      # Canvas processing and pixel manipulations
+│   │   ├── pdf-tools.js        # Multi-page PDF assembly and jsPDF integration
+│   │   ├── speech.js           # Speech-to-text handling and text downloads
+│   │   └── utilities.js        # Developer formatters, converters, and crypto helpers
+│   └── images/
+│       └── logo.svg            # Vector branding assets
 └── pages/
-├── outdoor.html
-├── weather.html
-├── image-tools.html
-├── pdf-tools.html
-├── speech.html
-├── utilities.html
-└── about.html
+    ├── outdoor.html            # Outdoor navigation and calculations
+    ├── weather.html            # Meteorological dashboard
+    ├── image-tools.html        # Local image modification studio
+    ├── pdf-tools.html          # Image aggregation and PDF compilation
+    ├── speech.html             # Real-time microphone dictation interface
+    ├── utilities.html          # Developer utilities collection
+    └── about.html              # Reference attribution and platform details
+```
 
+---
 
-## Local Setup
+## Getting Started
 
-No build step is required. Simply open `index.html` in a modern browser, or serve the folder with any static file server:
+Because TrailKit uses no build system, bundling, or transpilation, you can run it immediately with any local static HTTP server.
+
+### Local Setup
+
+Clone the repository and serve the files:
 
 ```bash
-# Python 3
+# Clone repository
+git clone https://github.com/your-username/trailkit.git
+cd trailkit
+
+# Option A: Python 3
 python -m http.server 8000
 
-# Node.js (if you have npx)
+# Option B: Node.js (via npx)
 npx serve .
 
-# PHP
+# Option C: PHP
 php -S localhost:8000
 ```
-## Netlify Deployment
 
-Drag and drop the project folder onto app.netlify.com/drop.
+Once running, navigate to `http://localhost:8000` in your browser.
 
-Or connect your Git repository and set the publish directory to the project root (no build command).
+---
 
-##Vercel Static Deployment
+## Deployment
 
-Import the project into vercel.com.
+Deploy TrailKit directly from your source repository without build commands:
 
-Set the framework preset to Other.
+### Netlify
+* **Drag & Drop:** Upload the repository directory directly to [app.netlify.com/drop](https://app.netlify.com/drop).
+* **Git Integration:** Connect your repository, set the **Publish directory** to root (`.`), and leave the **Build command** blank.
 
-Leave the build command empty and set the output directory to the project root (.).
+### Vercel
+* Import your Git project into [vercel.com](https://vercel.com).
+* Select **Other** as the framework preset.
+* Keep the **Build Command** empty and designate the root (`.`) as the **Output Directory**.
 
-## Cloudflare Pages Deployment
+### Cloudflare Pages
+* Create a project in the **Pages** dashboard and connect your Git repository.
+* Specify the build output directory as root (`.`) and leave the build command empty.
 
-Go to Pages → Create a project.
+---
 
-Connect your Git repository.
+## External Dependencies & APIs
 
-Set the build output directory to the project root (.).
+All dependencies are loaded via secure HTTPS CDNs and fall back gracefully with user-facing alerts if connectivity is lost.
 
-No build command is needed.
+### Third-Party Scripts
 
-## External Dependencies
+| Dependency | Version | Purpose | License | Source / CDN |
+| :--- | :--- | :--- | :--- | :--- |
+| **jsPDF** | `2.5.2` | Client-side vector and raster PDF creation | MIT | [cdnjs.cloudflare.com](https://cdnjs.cloudflare.com) |
+| **qrcode-generator** | `1.4.4` | Offline QR code matrix generation | MIT | [jsdelivr.net](https://www.jsdelivr.com) |
 
-Dependency	Version	Purpose	License	Source
-jsPDF	2.5.2	PDF generation	MIT	cdnjs.cloudflare.com
-qrcode-generator	1.4.4	QR code generation	MIT	jsDelivr
-Both are loaded over HTTPS from public CDNs. If the CDN is unavailable, the affected tool shows a clear error message and the rest of the site continues to function normally.
+### External APIs
 
-## API Requirements
+| Provider | Consumed By | Authentication | Integration Scope |
+| :--- | :--- | :--- | :--- |
+| **Open-Meteo** | Weather Forecasting | None required | Geocoding lookups, current conditions, 7-day forecast models |
+| **Frankfurter v2** | Currency Converter | None required | Reference exchange rates from the ECB and central banks (200+ currencies) |
 
-API	Used By	Key Required?	Notes
-Open-Meteo	Weather	No	Free, open-source weather API (geocoding + forecast)
-Frankfurter v2	Currency Converter	No	Free, no-key exchange rate API (ECB + 98 central banks, 200+ currencies)
-No secret API keys are included or required. No API keys are stored in the repository. No environment variables are needed.
+> *Note:* No environment variables, proprietary API tokens, or hidden backend proxies are required to run this project.
 
-## Browser Requirements
+---
 
-Modern browser: Chrome 90+, Firefox 90+, Safari 15+, Edge 90+
+## Browser Compatibility
 
-Web Speech API (Speech to Text): Chrome, Edge, Safari. Not supported in Firefox.
+| API / Feature | Chrome | Edge | Safari | Firefox | Notes |
+| :--- | :---: | :---: | :---: | :---: | :--- |
+| **Core Layout & UI** | 90+ | 90+ | 15+ | 90+ | CSS Grid, Flexbox, Custom Properties |
+| **Web Crypto API** | Supported | Supported | Supported | Supported | Required for client-side hashing |
+| **HTML5 Canvas & File API** | Supported | Supported | Supported | Supported | Used for offline image processing and PDF creation |
+| **Async Clipboard API** | Supported | Supported | Supported | Supported | Requires secure origin (`https://` or `localhost`) |
+| **Web Speech API** | Supported | Supported | Supported | **Not Supported** | Speech-to-text requires Chrome, Edge, or Safari |
 
-Web Crypto API (Hash Generator): All modern browsers
+---
 
-Canvas API (Image Tools): All modern browsers
+## Privacy & Security
 
-File API & Drag/Drop (Image/PDF Tools): All modern browsers
+* **Local File Processing:** Images, documents, and generated PDFs remain inside your browser's execution thread; zero data is transmitted over the wire.
+* **Audio Handling:** The Web Speech API delegates processing to native operating system or vendor runtimes (e.g., Google speech servers on Chrome); TrailKit stores or transmits no audio.
+* **Local Persistence:** `localStorage` is used solely to store UI theme preferences and last-queried weather coordinates.
+* **Input Validation:** User-provided files are constrained by MIME types and capped at a maximum size of 25 MB before reading.
+* **Zero Tracking:** No tracking pixels, analytics scripts, profiling telemetry, or third-party cookies.
+* **Execution Safety:** No dynamic string execution (`eval()`), code generation, or shell execution paths.
 
-localStorage (Theme, Weather location): All modern browsers
-
-Clipboard API (Copy buttons): Requires HTTPS or localhost in most browsers
-
-## Privacy
-
-Images & PDFs are processed entirely in the browser using the Canvas API and jsPDF. Files are never uploaded to any server.
-
-Speech is handled by the browser's Web Speech API. Depending on the browser, audio may be processed by the browser vendor's cloud service (e.g., Google for Chrome). TrailKit does not record, store, or transmit audio.
-
-Weather search queries are sent to Open-Meteo's geocoding service. Weather data is fetched directly from Open-Meteo.
-
-Currency conversion uses the Frankfurter API v2. No personal data is sent.
-
-localStorage stores only the theme preference and the last weather location. You can clear these at any time via your browser settings.
-
-No analytics, cookies, or tracking scripts of any kind.
-
-## Security
-
-No shell command execution. No eval(). No dynamic code generation from user input.
-
-No secret API keys included or required.
-
-File uploads are validated by MIME type and size (25 MB limit) before processing.
-
-External dependencies are minimal, pinned to specific versions, and loaded over HTTPS.
-
-All user input is validated before processing. Errors are caught and shown as user-friendly messages.
-
-Relative paths are used throughout for GitHub Pages subpath compatibility.
+---
 
 ## Known Limitations
 
-No native sensor access: Browsers cannot access phone barometers, magnetometers, or GPS with the same fidelity as a native Android app. The altitude estimator requires manual pressure input. The compass uses the device orientation API where available.
+* **Hardware Sensors:** Web browsers lack arbitrary low-level access to device hardware such as barometer units and hardware magnetometers; altitude estimation requires manual pressure inputs, and compass functionality relies on the Device Orientation API where supported.
+* **Speech Engine Support:** The Web Speech API is not supported in Mozilla Firefox. Full offline zero-install transcription without external vendors requires `whisper.cpp` WASM binaries and models (75 MB to 1.5 GB), which are omitted to keep the project lightweight.
+* **Currency Rates:** Exchange rate data via the Frankfurter v2 API refreshes daily from the European Central Bank and central banking sources; real-time intraday trading ticks are not reflected.
+* **PDF Memory Footprint:** Very large collections of high-resolution images can result in notable browser memory utilization during jsPDF canvas serialization.
 
-Speech recognition: The Web Speech API is not supported in Firefox. Chrome, Edge, and Safari use the browser vendor's speech service. whisper.cpp WASM integration would require model files (75 MB–1.5 GB) and WASM builds, which are not included by default.
+---
 
-Weather: Requires an internet connection. Open-Meteo is a third-party service; if it is unavailable, the weather tool shows an error.
+## Attribution & Credits
 
-Currency: Rates are updated daily by the source providers. Intra-day fluctuations are not reflected. The Frankfurter v1 API is frozen; TrailKit uses v2.
+TrailKit adapts open-source concepts, user-interface structures, and algorithm references from the following projects:
 
-PDF generation: Very large images (many pages × high resolution) may consume significant memory. jsPDF converts images to JPEG internally, which may slightly reduce quality for transparent PNGs.
+* **[Trail Sense](https://github.com/kylecorry31/Trail-Sense)** by Kyle Corry (MIT) — Navigational and environmental calculation patterns.
+* **[AIC Weather Forecasting](https://github.com/fengyang95)** by fengyang95 (MIT) — Forecasting interface presentation.
+* **[Images-to-PDF](https://github.com/Swati4star/Images-to-PDF)** by Swati4star — PDF generation and page sorting workflows.
+* **[MultiMian ImageKit](https://github.com/Mianhassam96)** by Mianhassam96 — Image compression and manipulation tools.
+* **[whisper.cpp](https://github.com/ggerganov/whisper.cpp)** by ggml-org (MIT) — Voice transcription baseline references.
+* **[Bash-Snippets](https://github.com/alexanderepstein/Bash-Snippets)** by alexanderepstein (MIT) — Quick utility tool concepts.
+* **[swap](https://github.com/florianv/swap)** by florianv (MIT) — Currency conversion logic inspiration.
+* **[WinScript](https://github.com/flick9000)** by flick9000 — Utility UI design cues.
+* **[Open-Meteo](https://open-meteo.com/)** — Free weather and geocoding API.
+* **[Frankfurter](https://www.frankfurter.app/)** — Open exchange rate API.
 
-whisper.cpp: The original native implementation requires binaries, WASM, and model files. TrailKit uses the Web Speech API as a functional, zero-install alternative and documents the additional assets required for full whisper.cpp integration.
+All implementations in TrailKit are clean-room browser-native adaptations designed for vanilla JavaScript.
 
-OS swap management: The reference repository florianv/swap is a PHP currency conversion library (not an OS swap manager). TrailKit implements browser-based currency conversion — no fake system modifications.
-
-## Credits
-
-This project was inspired by the following open-source repositories. No code was copied directly; all implementations are independent browser adaptations of the underlying concepts.
-
-Trail Sense — Kyle Corry (MIT License)
-
-AIC Weather Forecasting — fengyang95 (MIT License)
-
-Images-to-PDF — Swati4star
-
-MultiMian ImageKit — Mianhassam96
-
-whisper.cpp — ggml-org (MIT License)
-
-Bash-Snippets — alexanderepstein (MIT License)
-
-swap — florianv (MIT License)
-
-WinScript — flick9000 (design inspiration)
-
-Bootstrap — design reference
-
-Tailwind CSS — design reference
-
-Open-Meteo — free weather API
-
-Frankfurter — free exchange rate API
-
-jsPDF — PDF generation library (MIT)
-
-qrcode-generator — QR code library (MIT)
-
-## License Information
-
-TrailKit is released under the MIT License. See the LICENSE file for details.
-
-The original repositories referenced above have their own licenses:
-
-Trail Sense — MIT License
-
-AIC Weather Forecasting — MIT License
-
-whisper.cpp — MIT License
-
-Bash-Snippets — MIT License
-
-swap — MIT License
-
-Images-to-PDF — See repository for current license
-
-MultiMian ImageKit — See repository for current license
-
-No code from these repositories was copied directly. All implementations are independent browser adaptations of the underlying concepts. Attribution is provided in the About page and in this README.
-
-## Implementation Status
-
-Fully Functional
-These features genuinely work in the static browser implementation:
-
-✅ Distance & bearing calculator (Haversine distance, initial bearing, compass direction)
-
-✅ Sunrise/sunset estimator (NOAA simplified solar position algorithm)
-
-✅ Altitude estimator from barometric pressure
-
-✅ Weather search via geocoding, current conditions, 7-day forecast (Open-Meteo)
-
-✅ Image load, preview, info display (dimensions, format, size, aspect ratio, megapixels)
-
-✅ Image resize with custom dimensions and PNG download
-
-✅ Image compress & convert (JPEG/WebP/PNG with quality slider)
-
-✅ Image rotate (90°, 180°, 270°, -90°)
-
-✅ Image crop (custom x/y/width/height with bounds checking)
-
-✅ Images to PDF (multiple images, drag/drop, preview, reorder, remove, clear all)
-
-✅ PDF page size (A4, Letter, Fit-to-image), orientation, margin, custom file name
-
-✅ Speech to text (Web Speech API — Chrome, Edge, Safari) with copy and .txt download
-
-✅ Hash generator (MD5, SHA-1, SHA-256, SHA-512 via Web Crypto)
-
-✅ UUID v4 generator (1–50 at a time, copy to clipboard)
-
-✅ Base64 encode/decode (UTF-8 safe)
-
-✅ JSON format/minify with clear error messages
-
-✅ Unit converter (length, mass, temperature, area, volume, speed, data)
-
-✅ QR code generator (128/256/512 px, PNG download)
-
-✅ Currency converter (Frankfurter API v2, 200+ currencies)
-
-✅ Dark/light theme toggle with localStorage persistence and system preference detection
-
-✅ Responsive mobile navigation (hamburger menu)
-
-✅ Homepage tool search and category filtering
-
-✅ Scroll-reveal animations (respects prefers-reduced-motion)
-
-✅ All reset/clear buttons functional
-
-✅ Error handling for empty/invalid inputs across all tools
-
-✅ Duplicate detection for PDF image list
-
-✅ File type and size validation for image uploads
+---
 
 ## Contributing
 
-This project is a self-contained static website. Contributions are welcome for:
+Contributions are welcome. Please review the following architectural standards before opening a pull request:
 
-Bug fixes
+1. **Retain the Zero-Build Philosophy:** Do not add npm build systems, compilers, module bundlers, or server-side dependencies.
+2. **Modular File Structure:** Keep tool implementations modularized in their designated scripts within `assets/js/`.
+3. **No Unpinned Dependencies:** If adding external vendor libraries, prefer standard Web APIs first. Any required CDNs must use specific, pinned version tags.
+4. **Preserve Integrity & Attribution:** Ensure any upstream algorithm references are credited with appropriate license compliance.
 
-Additional browser-compatible tools
+---
 
-Accessibility improvements
+## License
 
-Documentation improvements
-
-Additional language support
-
-When contributing, please maintain the existing architecture:
-
-Keep every file separate and logically organized
-
-Do not add build steps or server dependencies
-
-Do not add unnecessary dependencies
-
-Document any external API usage clearly
-
-Preserve attribution to the original reference repositories
+This project is open source and available under the terms of the [MIT License](LICENSE). Original reference projects remain under their respective copyright and licensing agreements.
