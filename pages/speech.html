@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="TrailKit Speech to Text — transcribe speech using the browser Web Speech API.">
+  <title>Speech to Text — TrailKit</title>
+  <link rel="icon" href="../assets/images/logo.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/responsive.css">
+  <link rel="stylesheet" href="../assets/css/animations.css">
+</head>
+<body id="speech-page">
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+  <header class="site-header" id="site-header">
+    <div class="header-inner container">
+      <a href="../index.html" class="logo" aria-label="TrailKit home">
+        <img src="../assets/images/logo.svg" alt="" width="32" height="32" aria-hidden="true">
+        <span class="logo-text">TrailKit</span>
+      </a>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="main-nav">
+        <span class="nav-toggle-bar"></span><span class="nav-toggle-bar"></span><span class="nav-toggle-bar"></span>
+      </button>
+      <nav class="main-nav" id="main-nav" aria-label="Primary">
+        <ul class="nav-list">
+          <li><a href="../index.html" class="nav-link">Home</a></li>
+          <li><a href="outdoor.html" class="nav-link">Outdoor</a></li>
+          <li><a href="weather.html" class="nav-link">Weather</a></li>
+          <li><a href="image-tools.html" class="nav-link">Image Tools</a></li>
+          <li><a href="pdf-tools.html" class="nav-link">PDF Tools</a></li>
+          <li><a href="speech.html" class="nav-link active">Speech</a></li>
+          <li><a href="utilities.html" class="nav-link">Utilities</a></li>
+          <li><a href="about.html" class="nav-link">About</a></li>
+        </ul>
+      </nav>
+      <button class="theme-toggle" id="theme-toggle" aria-label="Switch to dark theme" title="Toggle theme">
+        <svg class="icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        <svg class="icon-moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <div class="page-header">
+      <div class="container">
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+          <a href="../index.html">Home</a><span aria-hidden="true">/</span><span>Speech</span>
+        </nav>
+        <h1>Speech to Text</h1>
+        <p>Live microphone transcription using the browser's built-in Web Speech API. No audio is sent to TrailKit servers.</p>
+      </div>
+    </div>
+
+    <section class="section">
+      <div class="container tool-layout">
+
+        <div class="card">
+          <h2 class="card-title">Live Transcription</h2>
+          <p class="card-desc">Click "Start Listening" and speak. Your browser will transcribe your speech in real time. Click "Stop" when finished.</p>
+          <div id="speech-alert"></div>
+
+          <div style="display:flex;gap:var(--space-3);flex-wrap:wrap;margin-bottom:var(--space-4)">
+            <button class="btn btn-primary" id="speech-start" type="button">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/></svg>
+              Start Listening
+            </button>
+            <button class="btn btn-danger" id="speech-stop" type="button" disabled>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/></svg>
+              Stop
+            </button>
+            <button class="btn btn-outline" id="speech-reset" type="button">Reset</button>
+          </div>
+
+          <p class="speech-status" id="speech-status" aria-live="polite">Ready</p>
+
+          <div class="field">
+            <label for="speech-final">Transcript (final)</label>
+            <div class="result-box" id="speech-final" style="min-height:120px;font-family:var(--font-sans);font-size:1rem" aria-live="polite"></div>
+          </div>
+
+          <div class="field">
+            <label for="speech-interim">Interim result</label>
+            <div class="result-box" id="speech-interim" style="min-height:40px;font-family:var(--font-sans);color:var(--color-text-muted)" aria-live="polite"></div>
+          </div>
+
+          <div style="display:flex;gap:var(--space-3);flex-wrap:wrap">
+            <button class="btn btn-outline btn-sm" id="speech-copy" type="button">Copy Transcript</button>
+            <button class="btn btn-outline btn-sm" id="speech-download" type="button">Download .txt</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <h2 class="card-title">About Browser Speech Recognition</h2>
+          <p class="card-desc">How this tool works and what to expect:</p>
+          <ul class="list-plain">
+            <li><strong>Browser support:</strong> Chrome, Edge, and Safari support the Web Speech API. Firefox does not currently support live microphone transcription.</li>
+            <li><strong>Processing:</strong> In many browsers, speech is processed by the browser vendor's cloud service (e.g., Google's servers for Chrome). This means audio may leave your device depending on your browser.</li>
+            <li><strong>Privacy:</strong> TrailKit does not record, store, or transmit your audio. The Web Speech API is managed entirely by your browser.</li>
+            <li><strong>Accuracy:</strong> Recognition quality depends on your microphone, background noise, and the browser's speech model.</li>
+            <li><strong>Offline:</strong> Some browsers support offline speech recognition, but this is not guaranteed across all platforms.</li>
+          </ul>
+        </div>
+
+        <div class="alert alert-warning">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          <div><strong>whisper.cpp note:</strong> The reference repository whisper.cpp provides native/offline speech recognition. Running it in a browser requires WebAssembly (WASM) builds and model files (typically 75 MB–1.5 GB) that are not included here. This implementation uses the browser's built-in Web Speech API as a functional, zero-install alternative. See the <a href="about.html">About page</a> for details on adding whisper.cpp WASM support in the future.</div>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-brand"><img src="../assets/images/logo.svg" alt="" width="24" height="24" aria-hidden="true"><span>TrailKit</span></div>
+      <p class="footer-note">Built with HTML, CSS &amp; vanilla JavaScript.</p>
+      <nav aria-label="Footer"><ul class="footer-links"><li><a href="about.html">About</a></li><li><a href="about.html#credits">Credits</a></li><li><a href="about.html#privacy">Privacy</a></li></ul></nav>
+    </div>
+  </footer>
+
+  <script src="../assets/js/theme.js"></script>
+  <script src="../assets/js/navigation.js"></script>
+  <script src="../assets/js/app.js"></script>
+  <script src="../assets/js/speech.js"></script>
+</body>
+</html>

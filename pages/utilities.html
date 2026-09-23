@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="TrailKit Developer Utilities — hash, UUID, Base64, JSON, unit converter, QR code, and currency converter.">
+  <title>Utilities — TrailKit</title>
+  <link rel="icon" href="../assets/images/logo.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/responsive.css">
+  <link rel="stylesheet" href="../assets/css/animations.css">
+  <script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.js"></script>
+</head>
+<body id="utilities-page">
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+  <header class="site-header" id="site-header">
+    <div class="header-inner container">
+      <a href="../index.html" class="logo" aria-label="TrailKit home">
+        <img src="../assets/images/logo.svg" alt="" width="32" height="32" aria-hidden="true">
+        <span class="logo-text">TrailKit</span>
+      </a>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="main-nav">
+        <span class="nav-toggle-bar"></span><span class="nav-toggle-bar"></span><span class="nav-toggle-bar"></span>
+      </button>
+      <nav class="main-nav" id="main-nav" aria-label="Primary">
+        <ul class="nav-list">
+          <li><a href="../index.html" class="nav-link">Home</a></li>
+          <li><a href="outdoor.html" class="nav-link">Outdoor</a></li>
+          <li><a href="weather.html" class="nav-link">Weather</a></li>
+          <li><a href="image-tools.html" class="nav-link">Image Tools</a></li>
+          <li><a href="pdf-tools.html" class="nav-link">PDF Tools</a></li>
+          <li><a href="speech.html" class="nav-link">Speech</a></li>
+          <li><a href="utilities.html" class="nav-link active">Utilities</a></li>
+          <li><a href="about.html" class="nav-link">About</a></li>
+        </ul>
+      </nav>
+      <button class="theme-toggle" id="theme-toggle" aria-label="Switch to dark theme" title="Toggle theme">
+        <svg class="icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        <svg class="icon-moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <div class="page-header">
+      <div class="container">
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+          <a href="../index.html">Home</a><span aria-hidden="true">/</span><span>Utilities</span>
+        </nav>
+        <h1>Developer Utilities</h1>
+        <p>A collection of small, focused tools for developers and power users — all running locally.</p>
+      </div>
+    </div>
+
+    <section class="section">
+      <div class="container tool-layout">
+
+        <!-- Hash -->
+        <div class="card" id="hash">
+          <h2 class="card-title">Hash Generator</h2>
+          <p class="card-desc">Compute MD5, SHA-1, SHA-256, and SHA-512 hashes of any text using the Web Crypto API.</p>
+          <div id="hash-alert"></div>
+          <div class="field">
+            <label for="hash-input">Input text</label>
+            <textarea class="textarea" id="hash-input" placeholder="Enter text to hash…"></textarea>
+          </div>
+          <div style="display:flex;gap:var(--space-3);flex-wrap:wrap">
+            <button class="btn btn-primary" id="hash-generate" type="button">Generate Hashes</button>
+            <button class="btn btn-outline" id="hash-reset" type="button">Clear</button>
+          </div>
+          <div id="hash-output" style="margin-top:var(--space-4)"></div>
+        </div>
+
+        <!-- UUID -->
+        <div class="card" id="uuid">
+          <h2 class="card-title">UUID Generator</h2>
+          <p class="card-desc">Generate RFC 4122 version 4 UUIDs.</p>
+          <div class="tool-panel">
+            <div class="field">
+              <label for="uuid-count">How many?</label>
+              <input class="input" id="uuid-count" type="number" min="1" max="50" value="5">
+            </div>
+            <div class="field">
+              <label>&nbsp;</label>
+              <button class="btn btn-primary btn-block" id="uuid-generate" type="button">Generate</button>
+            </div>
+          </div>
+          <div id="uuid-output" style="margin-top:var(--space-3)"></div>
+          <div style="display:flex;gap:var(--space-3);flex-wrap:wrap;margin-top:var(--space-3)">
+            <button class="btn btn-outline btn-sm" id="uuid-copy" type="button">Copy</button>
+            <button class="btn btn-outline btn-sm" id="uuid-reset" type="button">Reset</button>
+          </div>
+        </div>
+
+        <!-- Base64 -->
+        <div class="card" id="base64">
+          <h2 class="card-title">Base64 Encoder / Decoder</h2>
+          <p class="card-desc">Encode text to Base64 or decode a Base64 string back to text. UTF-8 safe.</p>
+          <div id="b64-alert"></div>
+          <div class="field">
+            <label for="b64-input">Input</label>
+            <textarea class="textarea" id="b64-input" placeholder="Enter text or Base64…"></textarea>
+          </div>
+          <div style="display:flex;gap:var(--space-3);flex-wrap:wrap">
+            <button class="btn btn-primary" id="b64-encode" type="button">Encode</button>
+            <button class="btn btn-primary" id="b64-decode" type="button">Decode</button>
+            <button class="btn btn-outline" id="b64-reset" type="button">Reset</button>
+          </div>
+          <div class="field" style="margin-top:var(--space-3)">
+            <label for="b64-output">Output</label>
+            <textarea class="textarea" id="b64-output" placeholder="Result appears here…" readonly></textarea>
+          </div>
+          <button class="btn btn-outline btn-sm" id="b64-copy" type="button">Copy Output</button>
+        </div>
+
+        <!-- JSON -->
+        <div class="card" id="json">
+          <h2 class="card-title">JSON Formatter</h2>
+          <p class="card-desc">Format or minify JSON. Invalid JSON shows a clear error message.</p>
+          <div id="json-alert"></div>
+          <div class="field">
+            <label for="json-input">Input JSON</label>
+            <textarea class="textarea" id="json-input" placeholder='{"hello": "world"}'></textarea>
+          </div>
+          <div style="display:flex;gap:var(--space-3);flex-wrap:wrap">
+            <button class="btn btn-primary" id="json-format" type="button">Format</button>
+            <button class="btn btn-primary" id="json-minify" type="button">Minify</button>
+            <button class="btn btn-outline" id="json-reset" type="button">Reset</button>
+          </div>
+          <div class="field" style="margin-top:var(--space-3)">
+            <label for="json-output">Output</label>
+            <textarea class="textarea" id="json-output" placeholder="Formatted JSON appears here…" readonly></textarea>
+          </div>
+          <button class="btn btn-outline btn-sm" id="json-copy" type="button">Copy Output</button>
+        </div>
+
+        <!-- Unit Converter -->
+        <div class="card" id="units">
+          <h2 class="card-title">Unit Converter</h2>
+          <p class="card-desc">Convert between length, mass, temperature, area, volume, speed, and data units.</p>
+          <div id="unit-alert"></div>
+          <div class="tool-panel">
+            <div class="field">
+              <label for="unit-category">Category</label>
+              <select class="select" id="unit-category">
+                <option value="length">Length</option>
+                <option value="mass">Mass</option>
+                <option value="temperature">Temperature</option>
+                <option value="area">Area</option>
+                <option value="volume">Volume</option>
+                <option value="speed">Speed</option>
+                <option value="data">Data</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="unit-value">Value</label>
+              <input class="input" id="unit-value" type="number" step="any" value="1">
+            </div>
+          </div>
+          <div class="tool-panel">
+            <div class="field">
+              <label for="unit-from">From</label>
+              <select class="select" id="unit-from"></select>
+            </div>
+            <div class="field">
+              <label for="unit-to">To</label>
+              <select class="select" id="unit-to"></select>
+            </div>
+          </div>
+          <div id="unit-output" style="margin-top:var(--space-3)"></div>
+          <button class="btn btn-outline btn-sm" id="unit-reset" type="button" style="margin-top:var(--space-3)">Reset</button>
+        </div>
+
+        <!-- QR Code -->
+        <div class="card" id="qr">
+          <h2 class="card-title">QR Code Generator</h2>
+          <p class="card-desc">Generate a QR code from text or a URL. Download as PNG.</p>
+          <div id="qr-alert"></div>
+          <div class="field">
+            <label for="qr-input">Text or URL</label>
+            <input class="input" id="qr-input" type="text" placeholder="https://example.com">
+          </div>
+          <div class="field">
+            <label for="qr-size">Size (px)</label>
+            <select class="select" id="qr-size">
+              <option value="128">128 × 128</option>
+              <option value="256" selected>256 × 256</option>
+              <option value="512">512 × 512</option>
+            </select>
+          </div>
+          <div style="display:flex;gap:var(--space-3);flex-wrap:wrap">
+            <button class="btn btn-primary" id="qr-generate" type="button">Generate QR Code</button>
+            <button class="btn btn-outline" id="qr-download" type="button" disabled>Download PNG</button>
+            <button class="btn btn-outline" id="qr-reset" type="button">Reset</button>
+          </div>
+          <div id="qr-output" style="margin-top:var(--space-4);display:flex;justify-content:center"></div>
+        </div>
+
+        <!-- Currency -->
+        <div class="card" id="currency">
+          <h2 class="card-title">Currency Converter</h2>
+          <p class="card-desc">Convert between 30+ currencies using the free Frankfurter API v2 (European Central Bank and other sources).</p>
+          <div id="currency-alert"></div>
+          <form id="currency-form" novalidate>
+            <div class="tool-panel">
+              <div class="field">
+                <label for="currency-amount">Amount</label>
+                <input class="input" id="currency-amount" type="number" step="any" min="0" value="1">
+              </div>
+              <div class="field">
+                <label for="currency-from">From</label>
+                <select class="select" id="currency-from"></select>
+              </div>
+            </div>
+            <div class="tool-panel">
+              <div class="field">
+                <label for="currency-to">To</label>
+                <select class="select" id="currency-to"></select>
+              </div>
+              <div class="field">
+                <label>&nbsp;</label>
+                <button class="btn btn-primary btn-block" id="currency-convert" type="submit">Convert</button>
+              </div>
+            </div>
+          </form>
+          <div id="currency-output" style="margin-top:var(--space-3)"></div>
+          <button class="btn btn-outline btn-sm" id="currency-reset" type="button" style="margin-top:var(--space-3)">Reset</button>
+          <p class="field-hint" style="margin-top:var(--space-3)">
+            Exchange rates are fetched from <a href="https://frankfurter.dev" target="_blank" rel="noopener noreferrer">frankfurter.dev</a> (API v2).
+            No API key is required. Rates are updated daily.
+          </p>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-brand"><img src="../assets/images/logo.svg" alt="" width="24" height="24" aria-hidden="true"><span>TrailKit</span></div>
+      <p class="footer-note">Built with HTML, CSS &amp; vanilla JavaScript.</p>
+      <nav aria-label="Footer"><ul class="footer-links"><li><a href="about.html">About</a></li><li><a href="about.html#credits">Credits</a></li><li><a href="about.html#privacy">Privacy</a></li></ul></nav>
+    </div>
+  </footer>
+
+  <script src="../assets/js/theme.js"></script>
+  <script src="../assets/js/navigation.js"></script>
+  <script src="../assets/js/app.js"></script>
+  <script src="../assets/js/utilities.js"></script>
+</body>
+</html>

@@ -1,0 +1,73 @@
+/* ==========================================================================
+   TrailKit — Responsive Styles
+   Breakpoints: 1024px (tablet landscape), 768px (tablet), 560px (mobile)
+   ========================================================================== */
+
+@media (max-width: 1024px) {
+  .hero-inner { grid-template-columns: 1fr; }
+  .hero-visual { min-height: 220px; }
+  .tool-panel { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 820px) {
+  .nav-toggle { display: flex; }
+
+  .main-nav {
+    position: fixed;
+    top: var(--header-height);
+    left: 0;
+    right: 0;
+    background: var(--color-surface);
+    border-bottom: 1px solid var(--color-border);
+    box-shadow: var(--shadow-md);
+    padding: var(--space-3);
+    transform: translateY(-120%);
+    opacity: 0;
+    visibility: hidden;
+    transition: transform var(--transition-base), opacity var(--transition-base), visibility var(--transition-base);
+    max-height: calc(100vh - var(--header-height));
+    overflow-y: auto;
+    z-index: 99;
+  }
+  .main-nav.open {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+  }
+  .nav-list { flex-direction: column; gap: 2px; }
+  .nav-link { display: block; padding: var(--space-3) var(--space-4); font-size: 1rem; }
+
+  .theme-toggle { margin-left: 0; }
+}
+
+@media (max-width: 560px) {
+  :root { --space-8: 2.5rem; --space-7: 2rem; }
+
+  .hero { padding-block: var(--space-6); }
+  .hero-actions { flex-direction: column; }
+  .hero-actions .btn { width: 100%; }
+  .hero-visual { display: none; }
+
+  .section { padding-block: var(--space-6); }
+
+  .tool-grid { grid-template-columns: 1fr; }
+
+  .category-filter { overflow-x: auto; flex-wrap: nowrap; padding-bottom: var(--space-1); }
+  .filter-btn { flex-shrink: 0; }
+
+  .input-group { flex-direction: column; }
+
+  .card { padding: var(--space-4); }
+
+  .image-grid { grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); }
+
+  .footer-links { flex-direction: column; gap: var(--space-2); }
+
+  .header-inner { gap: var(--space-2); }
+  .logo-text { display: none; }
+}
+
+@media (max-width: 380px) {
+  .tool-card { padding: var(--space-4); }
+  .stat-grid { grid-template-columns: 1fr 1fr; }
+}

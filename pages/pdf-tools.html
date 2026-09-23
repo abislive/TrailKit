@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="TrailKit Images to PDF — combine multiple images into a single PDF locally in your browser.">
+  <title>Images to PDF — TrailKit</title>
+  <link rel="icon" href="../assets/images/logo.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/responsive.css">
+  <link rel="stylesheet" href="../assets/css/animations.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.2/jspdf.umd.min.js"></script>
+</head>
+<body id="pdf-tools-page">
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+  <header class="site-header" id="site-header">
+    <div class="header-inner container">
+      <a href="../index.html" class="logo" aria-label="TrailKit home">
+        <img src="../assets/images/logo.svg" alt="" width="32" height="32" aria-hidden="true">
+        <span class="logo-text">TrailKit</span>
+      </a>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="main-nav">
+        <span class="nav-toggle-bar"></span><span class="nav-toggle-bar"></span><span class="nav-toggle-bar"></span>
+      </button>
+      <nav class="main-nav" id="main-nav" aria-label="Primary">
+        <ul class="nav-list">
+          <li><a href="../index.html" class="nav-link">Home</a></li>
+          <li><a href="outdoor.html" class="nav-link">Outdoor</a></li>
+          <li><a href="weather.html" class="nav-link">Weather</a></li>
+          <li><a href="image-tools.html" class="nav-link">Image Tools</a></li>
+          <li><a href="pdf-tools.html" class="nav-link active">PDF Tools</a></li>
+          <li><a href="speech.html" class="nav-link">Speech</a></li>
+          <li><a href="utilities.html" class="nav-link">Utilities</a></li>
+          <li><a href="about.html" class="nav-link">About</a></li>
+        </ul>
+      </nav>
+      <button class="theme-toggle" id="theme-toggle" aria-label="Switch to dark theme" title="Toggle theme">
+        <svg class="icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        <svg class="icon-moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <div class="page-header">
+      <div class="container">
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+          <a href="../index.html">Home</a><span aria-hidden="true">/</span><span>PDF Tools</span>
+        </nav>
+        <h1>Images to PDF</h1>
+        <p>Select multiple images, reorder them, and generate a single PDF. Everything runs locally using jsPDF.</p>
+      </div>
+    </div>
+
+    <section class="section">
+      <div class="container tool-layout">
+
+        <div class="card">
+          <h2 class="card-title">Add Images</h2>
+          <p class="card-desc">Select or drag &amp; drop images. You can reorder and remove them before generating the PDF.</p>
+          <div id="pdf-alert"></div>
+          <div class="dropzone" id="pdf-dropzone" role="button" tabindex="0" aria-label="Drop images here or click to browse">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+            <p><strong>Click to browse</strong> or drag images here</p>
+            <p style="font-size:0.8rem">Multiple files supported · JPEG, PNG, WebP, GIF, BMP</p>
+          </div>
+          <input type="file" id="pdf-file" accept="image/*" multiple class="hidden" aria-label="Choose image files">
+        </div>
+
+        <div class="card">
+          <h2 class="card-title">Image List (<span id="pdf-count">0</span>)</h2>
+          <p id="pdf-empty" class="card-desc">No images added yet. Use the dropzone above to add images.</p>
+          <div class="image-grid" id="pdf-image-grid"></div>
+          <div style="margin-top:var(--space-4);display:flex;gap:var(--space-2);flex-wrap:wrap">
+            <button class="btn btn-outline btn-sm" id="pdf-clear" type="button">Clear All</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <h2 class="card-title">PDF Options</h2>
+          <div id="pdf-output-alert"></div>
+          <div class="tool-panel">
+            <div class="field">
+              <label for="pdf-name">File name</label>
+              <input class="input" id="pdf-name" type="text" value="trailkit-document" placeholder="my-document">
+            </div>
+            <div class="field">
+              <label for="pdf-page-size">Page size</label>
+              <select class="select" id="pdf-page-size">
+                <option value="a4">A4 (210 × 297 mm)</option>
+                <option value="letter">US Letter (8.5 × 11 in)</option>
+                <option value="fit">Fit to image (no margins)</option>
+              </select>
+            </div>
+          </div>
+          <div class="tool-panel">
+            <div class="field">
+              <label for="pdf-orientation">Orientation</label>
+              <select class="select" id="pdf-orientation">
+                <option value="portrait">Portrait</option>
+                <option value="landscape">Landscape</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="pdf-margin">Margin (mm)</label>
+              <input class="input" id="pdf-margin" type="number" min="0" max="50" value="10">
+            </div>
+          </div>
+          <div style="display:flex;gap:var(--space-3);flex-wrap:wrap;margin-top:var(--space-3)">
+            <button class="btn btn-primary" id="pdf-generate" type="button">Generate PDF</button>
+            <button class="btn btn-outline" id="pdf-reset" type="button">Reset</button>
+          </div>
+        </div>
+
+        <div class="alert alert-info">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+          <div>PDF generation uses <a href="https://github.com/parallax/jsPDF" target="_blank" rel="noopener noreferrer">jsPDF</a> loaded from a CDN. Images are processed entirely in your browser and are never uploaded.</div>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-brand"><img src="../assets/images/logo.svg" alt="" width="24" height="24" aria-hidden="true"><span>TrailKit</span></div>
+      <p class="footer-note">Built with HTML, CSS &amp; vanilla JavaScript.</p>
+      <nav aria-label="Footer"><ul class="footer-links"><li><a href="about.html">About</a></li><li><a href="about.html#credits">Credits</a></li><li><a href="about.html#privacy">Privacy</a></li></ul></nav>
+    </div>
+  </footer>
+
+  <script src="../assets/js/theme.js"></script>
+  <script src="../assets/js/navigation.js"></script>
+  <script src="../assets/js/app.js"></script>
+  <script src="../assets/js/pdf-tools.js"></script>
+</body>
+</html>
