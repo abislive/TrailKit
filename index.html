@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="description" content="TrailKit — browser toolkit for outdoor, weather, image/PDF, speech, and developer utilities.">
+  <meta name="theme-color" content="#05070d">
+  <title>TrailKit — Browser Toolkit</title>
+  <link rel="icon" href="assets/images/logo.svg" type="image/svg+xml">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/responsive.css">
+  <link rel="stylesheet" href="assets/css/animations.css">
+  <link rel="stylesheet" href="assets/css/mobile.css">
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <header class="site-header" id="site-header">
+    <div class="header-inner container">
+      <a href="index.html" class="logo" aria-label="TrailKit home">
+        <img src="assets/images/logo.svg" alt="" width="32" height="32" aria-hidden="true">
+        <span class="logo-text">TrailKit</span>
+      </a>
+      <button class="cmd-trigger" id="cmd-trigger" aria-label="Open command palette">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <span class="cmd-trigger-text">Search tools</span>
+        <kbd class="cmd-trigger-kbd">Ctrl K</kbd>
+      </button>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="main-nav">
+        <span class="nav-toggle-bar"></span><span class="nav-toggle-bar"></span><span class="nav-toggle-bar"></span>
+      </button>
+      <nav class="main-nav" id="main-nav" aria-label="Primary">
+        <ul class="nav-list">
+          <li><a href="index.html" class="nav-link active">Home</a></li>
+          <li><a href="pages/outdoor.html" class="nav-link">Outdoor</a></li>
+          <li><a href="pages/weather.html" class="nav-link">Weather</a></li>
+          <li><a href="pages/image-tools.html" class="nav-link">Image</a></li>
+          <li><a href="pages/pdf-tools.html" class="nav-link">PDF</a></li>
+          <li><a href="pages/speech.html" class="nav-link">Speech</a></li>
+          <li><a href="pages/utilities.html" class="nav-link">Utilities</a></li>
+          <li><a href="pages/about.html" class="nav-link">About</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <section class="hero dashboard-hero">
+      <div class="container">
+        <div class="dashboard-intro">
+          <h1 class="hero-title">Your browser toolkit for <span class="highlight">any situation</span></h1>
+          <p class="hero-subtitle">All tools run locally in your browser. No account, no tracking, no backend.</p>
+          <div class="hero-actions">
+            <button type="button" class="btn btn-primary" id="hero-cmd-open">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              Open command palette
+              <kbd>Ctrl K</kbd>
+            </button>
+            <a href="#tools" class="btn btn-outline">Browse all tools</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="dashboard">
+      <div class="container">
+        <div class="dash-section" id="dash-favorites-wrap">
+          <div class="dash-section-head">
+            <h2 class="dash-section-title">★ Favorites</h2>
+            <p class="dash-section-sub">Pin your most-used tools for quick access.</p>
+          </div>
+          <div class="tool-grid" id="dash-favorites"></div>
+          <p class="dash-empty hidden" id="dash-favorites-empty">No favorites yet. Tap the ☆ on any tool card to pin it.</p>
+        </div>
+
+        <div class="dash-section" id="dash-recent-wrap">
+          <div class="dash-section-head">
+            <h2 class="dash-section-title">Recently used</h2>
+            <button type="button" class="btn btn-ghost btn-sm" id="dash-clear-recent">Clear</button>
+          </div>
+          <div class="tool-grid" id="dash-recent"></div>
+          <p class="dash-empty hidden" id="dash-recent-empty">Nothing here yet.</p>
+        </div>
+
+        <div class="dash-section" id="tools">
+          <div class="dash-section-head">
+            <h2 class="dash-section-title">All tools</h2>
+            <p class="dash-section-sub">Seven categories, everything runs locally.</p>
+          </div>
+
+          <div class="category-filter" id="category-filter" role="tablist" aria-label="Tool categories">
+            <button class="filter-btn active" data-category="all" role="tab" aria-selected="true">All</button>
+            <button class="filter-btn" data-category="outdoor" role="tab" aria-selected="false">Outdoor</button>
+            <button class="filter-btn" data-category="weather" role="tab" aria-selected="false">Weather</button>
+            <button class="filter-btn" data-category="image" role="tab" aria-selected="false">Image &amp; PDF</button>
+            <button class="filter-btn" data-category="speech" role="tab" aria-selected="false">Speech</button>
+            <button class="filter-btn" data-category="utilities" role="tab" aria-selected="false">Utilities</button>
+          </div>
+
+          <div class="tool-grid" id="tool-grid"></div>
+          <p class="no-results hidden" id="no-results">No tools match your search.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-alt">
+      <div class="container">
+        <div class="section-header reveal">
+          <h2 class="section-title">Why TrailKit?</h2>
+          <p class="section-subtitle">One toolkit, dozens of tools, zero servers.</p>
+        </div>
+        <div class="feature-grid">
+          <article class="feature-card reveal">
+            <div class="feature-icon" aria-hidden="true"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+            <h3>Privacy first</h3>
+            <p>Files and data never leave your device. Image processing, PDF generation, and hashing all run locally.</p>
+          </article>
+          <article class="feature-card reveal">
+            <div class="feature-icon" aria-hidden="true"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
+            <h3>Works offline</h3>
+            <p>Install as a PWA. Cached tools keep working when you lose connectivity; only live APIs need the network.</p>
+          </article>
+          <article class="feature-card reveal">
+            <div class="feature-icon" aria-hidden="true"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
+            <h3>No install required</h3>
+            <p>Open it in any modern browser. No app store, no account, no tracking scripts, no build step.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-brand"><img src="assets/images/logo.svg" alt="" width="24" height="24" aria-hidden="true"><span>TrailKit</span></div>
+      <p class="footer-note">Built with HTML, CSS &amp; vanilla JavaScript.</p>
+      <nav aria-label="Footer"><ul class="footer-links">
+        <li><a href="pages/about.html">About</a></li>
+        <li><a href="pages/about.html#credits">Credits</a></li>
+        <li><a href="pages/about.html#privacy">Privacy</a></li>
+      </ul></nav>
+    </div>
+  </footer>
+
+  <script src="assets/js/state.js"></script>
+  <script src="assets/js/notify.js"></script>
+  <script src="assets/js/tool-engine.js"></script>
+  <script src="assets/js/theme.js"></script>
+  <script src="assets/js/navigation.js"></script>
+  <script src="assets/js/favorites.js"></script>
+  <script src="assets/js/command-palette.js"></script>
+  <script src="assets/js/help.js"></script>
+  <script src="assets/js/mobile.js"></script>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#05070d">
+  <title>Offline — TrailKit</title>
+  <link rel="icon" href="assets/images/logo.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/responsive.css">
+  <link rel="stylesheet" href="assets/css/animations.css">
+  <link rel="stylesheet" href="assets/css/mobile.css">
+</head>
+<body class="error-page-body">
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <main id="main-content" class="error-page">
+    <div class="error-page-inner">
+      <a href="index.html" class="logo error-page-logo" aria-label="TrailKit home">
+        <img src="assets/images/logo.svg" alt="" width="40" height="40" aria-hidden="true">
+        <span class="logo-text">TrailKit</span>
+      </a>
+
+      <div class="error-page-card fade-in-up">
+        <div class="error-page-icon" aria-hidden="true">
+          <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M1 1l22 22"/>
+            <path d="M16.72 11.06A10.94 10.94 0 0 1 19 12.55"/>
+            <path d="M5 12.55a10.94 10.94 0 0 1 5.17-2.39"/>
+            <path d="M10.71 5.05A16 16 0 0 1 22.58 9"/>
+            <path d="M1.42 9a15.91 15.91 0 0 1 4.7-2.88"/>
+            <path d="M8.53 16.11a6 6 0 0 1 6.95 0"/>
+            <line x1="12" y1="20" x2="12.01" y2="20"/>
+          </svg>
+        </div>
+        <h1 class="error-page-title">You're offline</h1>
+        <p class="error-page-desc">
+          TrailKit can't reach the network right now. This is a
+          <strong>connectivity problem</strong>, not a 404 — the page you
+          requested may still exist.
+        </p>
+
+        <div class="error-page-actions">
+          <button type="button" class="btn btn-primary" id="retry-btn">↻ Try again</button>
+          <a href="index.html" class="btn btn-outline">← Back to Home</a>
+        </div>
+
+        <div class="error-page-hint">
+          <p><strong>What still works offline:</strong></p>
+          <ul class="error-page-links error-page-links-plain">
+            <li>Image Toolkit (resize, compress, rotate, crop)</li>
+            <li>Images to PDF (if jsPDF was already cached)</li>
+            <li>Hash, UUID, Base64, JSON, Unit converter, QR</li>
+            <li>Outdoor distance, bearing, sun-times, altitude</li>
+          </ul>
+          <p style="margin-top: var(--space-3); font-size: 0.85rem; color: var(--text-muted);">
+            <strong>Requires internet:</strong> Weather forecast, currency conversion.
+          </p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="assets/js/theme.js"></script>
+  <script>
+    document.getElementById('retry-btn').addEventListener('click', function () {
+      if (navigator.onLine) { window.location.reload(); return; }
+      fetch('index.html', { method: 'HEAD', cache: 'no-store' })
+        .then(function () { window.location.reload(); })
+        .catch(function () {
+          var btn = document.getElementById('retry-btn');
+          btn.textContent = 'Still offline — check your connection';
+          setTimeout(function () { btn.textContent = '↻ Try again'; }, 2500);
+        });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="description" content="About TrailKit — credits, privacy, security, and known limitations.">
+  <meta name="theme-color" content="#05070d">
+  <title>About — TrailKit</title>
+  <link rel="icon" href="../assets/images/logo.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/responsive.css">
+  <link rel="stylesheet" href="../assets/css/animations.css">
+  <link rel="manifest" href="../manifest.webmanifest">
+  <link rel="stylesheet" href="../assets/css/mobile.css">
+</head>
+<body id="about-page">
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+  <header class="site-header" id="site-header">
+    <div class="header-inner container">
+      <a href="../index.html" class="logo" aria-label="TrailKit home">
+        <img src="../assets/images/logo.svg" alt="" width="32" height="32" aria-hidden="true">
+        <span class="logo-text">TrailKit</span>
+      </a>
+      <button class="cmd-trigger" id="cmd-trigger" aria-label="Open command palette">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <span class="cmd-trigger-text">Search</span>
+        <kbd class="cmd-trigger-kbd">Ctrl K</kbd>
+      </button>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="main-nav">
+        <span class="nav-toggle-bar"></span><span class="nav-toggle-bar"></span><span class="nav-toggle-bar"></span>
+      </button>
+      <nav class="main-nav" id="main-nav" aria-label="Primary">
+        <ul class="nav-list">
+          <li><a href="../index.html" class="nav-link">Home</a></li>
+          <li><a href="outdoor.html" class="nav-link">Outdoor</a></li>
+          <li><a href="weather.html" class="nav-link">Weather</a></li>
+          <li><a href="image-tools.html" class="nav-link">Image Tools</a></li>
+          <li><a href="pdf-tools.html" class="nav-link">PDF Tools</a></li>
+          <li><a href="speech.html" class="nav-link">Speech</a></li>
+          <li><a href="utilities.html" class="nav-link">Utilities</a></li>
+          <li><a href="about.html" class="nav-link active">About</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <div class="page-header">
+      <div class="container">
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+          <a href="../index.html">Home</a><span aria-hidden="true">/</span><span>About</span>
+        </nav>
+        <h1>About TrailKit</h1>
+        <p>A unified browser toolkit inspired by seven open-source projects. Built as a static site with no backend.</p>
+      </div>
+    </div>
+
+    <section class="section">
+      <div class="container tool-layout tool-layout-wide">
+
+        <div class="card">
+          <h2 class="card-title">Project Overview</h2>
+          <p>TrailKit brings together useful functionality from seven GitHub repositories into a single, coherent web application. It is a <strong>static website</strong> — it requires no server, no build step, and no installation.</p>
+          <p>The tools are grouped into six categories: Outdoor &amp; Navigation, Weather, Image &amp; PDF, Audio &amp; Speech, and Developer Utilities.</p>
+        </div>
+
+        <div class="card" id="credits">
+          <h2 class="card-title">Credits &amp; References</h2>
+          <p class="card-desc">This project was inspired by the following open-source repositories. No code was copied directly.</p>
+
+          <div class="credit-item">
+            <div>
+              <h4><a href="https://github.com/kylecorry31/Trail-Sense" target="_blank" rel="noopener noreferrer">Trail Sense</a> — Kyle Corry</h4>
+              <p>Android app using phone sensors for wilderness treks. MIT License.</p>
+            </div>
+          </div>
+
+          <div class="credit-item">
+            <div>
+              <h4><a href="https://github.com/fengyang95/AIC_Weather_Forecasting" target="_blank" rel="noopener noreferrer">AIC Weather Forecasting</a> — fengyang95</h4>
+              <p>AI Challenger 2018 1st-place weather forecasting solution. MIT License.</p>
+            </div>
+          </div>
+
+          <div class="credit-item">
+            <div>
+              <h4><a href="https://github.com/Swati4star/Images-to-PDF" target="_blank" rel="noopener noreferrer">Images-to-PDF</a> — Swati4star</h4>
+              <p>Android app to convert images to PDF.</p>
+            </div>
+          </div>
+
+          <div class="credit-item">
+            <div>
+              <h4><a href="https://github.com/Mianhassam96/MultiMian-ImageKit" target="_blank" rel="noopener noreferrer">MultiMian ImageKit</a> — Mianhassam96</h4>
+              <p>Browser-based image toolkit.</p>
+            </div>
+          </div>
+
+          <div class="credit-item">
+            <div>
+              <h4><a href="https://github.com/ggml-org/whisper.cpp" target="_blank" rel="noopener noreferrer">whisper.cpp</a> — ggml-org</h4>
+              <p>C/C++ port of OpenAI's Whisper speech recognition model. MIT License.</p>
+            </div>
+          </div>
+
+          <div class="credit-item">
+            <div>
+              <h4><a href="https://github.com/alexanderepstein/Bash-Snippets" target="_blank" rel="noopener noreferrer">Bash-Snippets</a> — alexanderepstein</h4>
+              <p>Collection of small bash scripts. MIT License.</p>
+            </div>
+          </div>
+
+          <div class="credit-item">
+            <div>
+              <h4><a href="https://github.com/florianv/swap" target="_blank" rel="noopener noreferrer">swap</a> — florianv</h4>
+              <p>PHP currency conversion library. MIT License.</p>
+            </div>
+          </div>
+
+          <h3 style="margin-top:var(--space-5);font-size:1rem">Design &amp; CSS References</h3>
+          <div class="credit-item">
+            <div>
+              <h4><a href="https://github.com/flick9000/winscript" target="_blank" rel="noopener noreferrer">WinScript</a> — flick9000</h4>
+              <p>Visual style inspiration.</p>
+            </div>
+          </div>
+          <div class="credit-item">
+            <div>
+              <h4><a href="https://getbootstrap.com/" target="_blank" rel="noopener noreferrer">Bootstrap</a></h4>
+              <p>General component design reference (not used as a dependency).</p>
+            </div>
+          </div>
+          <div class="credit-item">
+            <div>
+              <h4><a href="https://tailwindcss.com/" target="_blank" rel="noopener noreferrer">Tailwind CSS</a></h4>
+              <p>Utility-first CSS concept reference (not used as a dependency).</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" id="privacy">
+          <h2 class="card-title">Privacy</h2>
+          <p>TrailKit prioritizes local processing. Here is exactly what happens with your data:</p>
+          <ul class="list-plain">
+            <li><strong>Images &amp; PDFs:</strong> Processed entirely in your browser using the Canvas API and jsPDF. Files are never uploaded to any server.</li>
+            <li><strong>Speech:</strong> The Web Speech API is used. Depending on your browser, audio may be processed by the browser vendor's cloud service.</li>
+            <li><strong>Weather:</strong> Your search query is sent to Open-Meteo's geocoding API.</li>
+            <li><strong>Currency:</strong> Exchange rates are fetched from the Frankfurter API (ECB data).</li>
+            <li><strong>Local storage:</strong> The theme preference and the last weather location are stored in your browser's <code>localStorage</code>.</li>
+            <li><strong>No tracking:</strong> There are no analytics, cookies, or third-party tracking scripts.</li>
+          </ul>
+        </div>
+
+        <div class="card" id="security">
+          <h2 class="card-title">Security</h2>
+          <ul class="list-plain">
+            <li>No shell command execution. No <code>eval()</code>.</li>
+            <li>No secret API keys are included. All APIs used are free and public.</li>
+            <li>Uploaded files are handled locally.</li>
+            <li>External dependencies are limited to jsPDF (CDN) and qrcode-generator (CDN), both loaded over HTTPS.</li>
+          </ul>
+        </div>
+
+        <div class="card" id="limitations">
+          <h2 class="card-title">Known Limitations</h2>
+          <ul class="list-plain">
+            <li><strong>No native sensor access:</strong> Browsers cannot access phone barometers, magnetometers, or GPS with the same fidelity as a native Android app.</li>
+            <li><strong>Speech recognition:</strong> The Web Speech API is not supported in Firefox.</li>
+            <li><strong>Weather:</strong> Requires an internet connection.</li>
+            <li><strong>Currency:</strong> Rates are updated daily by the ECB.</li>
+            <li><strong>PDF generation:</strong> Very large images may consume significant memory.</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h2 class="card-title">External Dependencies</h2>
+          <ul class="list-plain">
+            <li><strong>jsPDF</strong> (2.5.2) — PDF generation. Loaded from cdnjs.cloudflare.com. MIT License.</li>
+            <li><strong>qrcode-generator</strong> (1.4.4) — QR code generation. Loaded from jsDelivr. MIT License.</li>
+            <li><strong>Open-Meteo API</strong> — Free weather data. No key required.</li>
+            <li><strong>Frankfurter API</strong> — Free currency exchange rates (ECB). No key required.</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h2 class="card-title">License</h2>
+          <p>TrailKit is released under the MIT License. See the <code>LICENSE</code> file in the project root for details.</p>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-brand"><img src="../assets/images/logo.svg" alt="" width="24" height="24" aria-hidden="true"><span>TrailKit</span></div>
+      <p class="footer-note">Built with HTML, CSS &amp; vanilla JavaScript.</p>
+      <nav aria-label="Footer"><ul class="footer-links"><li><a href="about.html">About</a></li><li><a href="about.html#credits">Credits</a></li><li><a href="about.html#privacy">Privacy</a></li></ul></nav>
+    </div>
+  </footer>
+
+  <script src="../assets/js/state.js"></script>
+  <script src="../assets/js/notify.js"></script>
+  <script src="../assets/js/tool-engine.js"></script>
+  <script src="../assets/js/theme.js"></script>
+  <script src="../assets/js/navigation.js"></script>
+  <script src="../assets/js/favorites.js"></script>
+  <script src="../assets/js/command-palette.js"></script>
+  <script src="../assets/js/help.js"></script>
+  <script src="../assets/js/mobile.js"></script>
+  <script src="../assets/js/app.js"></script>
+</body>
+</html>
