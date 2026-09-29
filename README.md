@@ -211,7 +211,7 @@ Browser
 └── Service Worker
     └── Offline application shell
 No TrailKit application server is required.
-```
+
 Quickstart
 Requirements
 TrailKit targets modern evergreen browsers.
@@ -295,6 +295,9 @@ trailkit/
     ├── speech.html
     ├── utilities.html
     └── about.html
+
+```
+
 Configuration
 TrailKit does not require application-level environment variables or API keys for its documented public services.
 
