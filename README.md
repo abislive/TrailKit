@@ -211,7 +211,7 @@ Browser
 └── Service Worker
     └── Offline application shell
 No TrailKit application server is required.
-
+```
 Quickstart
 Requirements
 TrailKit targets modern evergreen browsers.
@@ -1112,4 +1112,4 @@ TrailKit — useful tools, wherever the trail takes you.
 
 MIT License • Issues • Discussions • Repository
 
-</div> ```
+</div>
